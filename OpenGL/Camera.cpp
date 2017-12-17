@@ -2,7 +2,6 @@
 #include <GL/glew.h>
 #include <GL/glut.h>
 
-#include <GL/glut.h>
 #include <glm/gtx/transform.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -51,8 +50,7 @@ void Camera :: updateCamera(Shader ourShader)
 
 	view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
-	// Create transformations
-	
+	// Create transformations	
     projection = glm::perspective(45.0f, 1024.0f / 700.0f, 0.1f, 100.0f);
 
     // Get their uniform location

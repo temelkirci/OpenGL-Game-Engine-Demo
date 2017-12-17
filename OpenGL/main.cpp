@@ -40,7 +40,7 @@ int main()
 
 	//glfwSetKeyCallback(lib -> window, key_callback);
     //glfwSetCursorPosCallback(lib -> window, mouse_callback);
-	//WglfwSetScrollCallback(lib -> window , ev -> scroll_callback);
+	//glfwSetScrollCallback(lib -> window , ev -> scroll_callback);
 
    // Set up vertex data (and buffer(s)) and attribute pointers
     GLfloat vertices[] = {
@@ -87,7 +87,7 @@ int main()
         -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
     };
 
-      // World space positions of our cubes
+    // World space positions of our cubes
     glm::vec3 cubePositions[] = {
         glm::vec3( 0.0f,  0.0f,  0.0f),
         glm::vec3( 2.0f,  5.0f, -15.0f),
@@ -113,6 +113,7 @@ int main()
     // Position attribute
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
     glEnableVertexAttribArray(0);
+
     // TexCoord attribute
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
     glEnableVertexAttribArray(2);

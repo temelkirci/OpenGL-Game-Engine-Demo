@@ -14,11 +14,11 @@ using namespace std;
 
 Event :: Event()
 {
-	yaw   = -90.0f;	// Yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right (due to how Eular angles work) so we initially rotate a bit to the left.
-	pitch =   0.0f;
-	lastX =  1024.0f  / 2.0;
-	lastY =  700.0f / 2.0;
-	fov =  45.0f;
+	yaw = -90.0f;	// Yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right (due to how Eular angles work) so we initially rotate a bit to the left.
+	pitch = 0.0f;
+	lastX = 1024.0f / 2.0;
+	lastY = 700.0f / 2.0;
+	fov = 45.0f;
 	firstMouse = true;
 }
 

@@ -1,11 +1,10 @@
-﻿Build started 11.10.2017 13:44:01.
+﻿Build started 17.12.2017 00:42:10.
      1>Project "C:\Users\TEMEL\Documents\Visual Studio 2012\Projects\OpenGL-Game-Engine-Demo\OpenGL\OpenGL.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Camera.cpp Event.cpp Library.cpp main.cpp Shader.cpp Texture.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Camera.cpp Event.cpp Shader.cpp Texture.cpp main.cpp
+         main.cpp
          Texture.cpp
          Shader.cpp
-         main.cpp
-         Library.cpp
          Event.cpp
      1>c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\event.cpp(44): warning C4244: '=' : conversion from 'double' to 'GLfloat', possible loss of data
      1>c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\event.cpp(50): warning C4244: '=' : conversion from 'double' to 'GLfloat', possible loss of data
@@ -42,4 +41,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:27.29
+Time Elapsed 00:00:18.50
