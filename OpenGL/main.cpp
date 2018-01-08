@@ -173,6 +173,7 @@ int main()
     glDeleteBuffers(1, &VBO);
     //glDeleteBuffers(1, &EBO);
 
+	// bellek serbest bırakma işlemleri
 	delete lib;
 	delete txt;
 	delete cam;

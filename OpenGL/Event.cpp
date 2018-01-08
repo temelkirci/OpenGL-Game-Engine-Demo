@@ -43,25 +43,21 @@ void Event :: InputEvent(GLFWwindow* pencere , Camera *cam)
 	{
 		cam -> cameraSpeed = 5.0f * cam -> deltaTime / 1000.f;
 		cam -> cameraPos += cam -> cameraSpeed * cam -> cameraFront;
-		cout<<"W"<<endl;
 	}
 	if(glfwGetKey(pencere, GLFW_KEY_A) == GLFW_PRESS)
 	{
 		cam -> cameraSpeed = 5.0f * cam -> deltaTime / 1000.f;
 		cam -> cameraPos -= glm::normalize(glm::cross(cam -> cameraFront, cam -> cameraUp)) * cam -> cameraSpeed;
-		cout<<"A"<<endl;
 	}
 	if(glfwGetKey(pencere, GLFW_KEY_S) == GLFW_PRESS)
 	{
 		cam -> cameraSpeed = 5.0f * cam -> deltaTime / 1000.f;
 		cam -> cameraPos -= cam -> cameraSpeed * cam -> cameraFront;
-		cout<<"S"<<endl;
 	}
 	if(glfwGetKey(pencere, GLFW_KEY_D) == GLFW_PRESS)
 	{
 		cam -> cameraSpeed = 5.0f * cam -> deltaTime / 1000.f;
 		cam -> cameraPos += glm::normalize(glm::cross(cam -> cameraFront, cam -> cameraUp)) * cam -> cameraSpeed;
-		cout<<"D"<<endl;
 	}
 
 

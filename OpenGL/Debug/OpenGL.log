@@ -1,23 +1,8 @@
-﻿Build started 17.12.2017 00:42:10.
+﻿Build started 6.01.2018 10:04:36.
      1>Project "C:\Users\TEMEL\Documents\Visual Studio 2012\Projects\OpenGL-Game-Engine-Demo\OpenGL\OpenGL.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Camera.cpp Event.cpp Shader.cpp Texture.cpp main.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Camera.cpp main.cpp
          main.cpp
-         Texture.cpp
-         Shader.cpp
-         Event.cpp
-     1>c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\event.cpp(44): warning C4244: '=' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\event.cpp(50): warning C4244: '=' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\event.cpp(56): warning C4244: '=' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\event.cpp(62): warning C4244: '=' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\event.cpp(70): warning C4244: '=' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\event.cpp(71): warning C4244: '=' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\event.cpp(75): warning C4244: 'initializing' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\event.cpp(76): warning C4244: 'initializing' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\event.cpp(77): warning C4244: '=' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\event.cpp(78): warning C4244: '=' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\event.cpp(80): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
-     1>c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\event.cpp(108): warning C4244: '-=' : conversion from 'double' to 'GLfloat', possible loss of data
          Camera.cpp
          Generating Code...
        Link:
@@ -41,4 +26,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:18.50
+Time Elapsed 00:00:13.14
