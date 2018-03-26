@@ -7,6 +7,7 @@
 #include <glm/glm.hpp>
 
 #include <iostream>
+
 #include "Event.h"
 #include "Camera.h"
 
@@ -27,8 +28,9 @@ Event ::~Event()
 
 }
 
-void Event :: InputEvent(GLFWwindow* pencere , Camera *cam)
-{	
+
+void Event :: InputEvent(GLFWwindow* pencere , Camera cam)
+{		
 	double xpos, ypos;
 	glfwGetCursorPos(pencere , &xpos, &ypos);
 	//glfwSetCursorPos(pencere , 1024/2, 768/2);
@@ -41,69 +43,81 @@ void Event :: InputEvent(GLFWwindow* pencere , Camera *cam)
 
 	if(glfwGetKey(pencere, GLFW_KEY_W) == GLFW_PRESS)
 	{
-		cam -> cameraSpeed = 5.0f * cam -> deltaTime / 1000.f;
-		cam -> cameraPos += cam -> cameraSpeed * cam -> cameraFront;
+		cam.ProcessKeyboard( FORWARD, cam.deltaTime );
+
+		//cam -> cameraSpeed = 5.0f * cam -> deltaTime / 1000.f;
+		//cam -> cameraPos += cam -> cameraSpeed * cam -> cameraFront;
 	}
 	if(glfwGetKey(pencere, GLFW_KEY_A) == GLFW_PRESS)
 	{
-		cam -> cameraSpeed = 5.0f * cam -> deltaTime / 1000.f;
-		cam -> cameraPos -= glm::normalize(glm::cross(cam -> cameraFront, cam -> cameraUp)) * cam -> cameraSpeed;
+		cam.ProcessKeyboard( LEFT, cam.deltaTime );
+		//cam -> cameraSpeed = 5.0f * cam -> deltaTime / 1000.f;
+		//cam -> cameraPos -= glm::normalize(glm::cross(cam -> cameraFront, cam -> cameraUp)) * cam -> cameraSpeed;
 	}
 	if(glfwGetKey(pencere, GLFW_KEY_S) == GLFW_PRESS)
 	{
-		cam -> cameraSpeed = 5.0f * cam -> deltaTime / 1000.f;
-		cam -> cameraPos -= cam -> cameraSpeed * cam -> cameraFront;
+		cam.ProcessKeyboard( BACKWARD, cam.deltaTime );
+		//cam -> cameraSpeed = 5.0f * cam -> deltaTime / 1000.f;
+		//cam -> cameraPos -= cam -> cameraSpeed * cam -> cameraFront;
 	}
 	if(glfwGetKey(pencere, GLFW_KEY_D) == GLFW_PRESS)
 	{
-		cam -> cameraSpeed = 5.0f * cam -> deltaTime / 1000.f;
-		cam -> cameraPos += glm::normalize(glm::cross(cam -> cameraFront, cam -> cameraUp)) * cam -> cameraSpeed;
+		cam.ProcessKeyboard( RIGHT, cam.deltaTime );
+		//cam -> cameraSpeed = 5.0f * cam -> deltaTime / 1000.f;
+		//cam -> cameraPos += glm::normalize(glm::cross(cam -> cameraFront, cam -> cameraUp)) * cam -> cameraSpeed;
 	}
 
-
-	if(firstMouse)
-	{
-		lastX = xpos;
-		lastY = ypos;
-		firstMouse = false;
-	}
-
-	GLfloat xoffset = xpos - lastX;
-	GLfloat yoffset = lastY - ypos;
-	lastX = xpos;
-	lastY = ypos;
-
-	GLfloat sensitivity = 0.05;
-
-	xoffset *= sensitivity;
-	yoffset *= sensitivity;
-
-	yaw += xoffset;
-	pitch += yoffset;
-
-	if(pitch > 89.0f)
-		pitch = 89.0f;
-
-	if(pitch < -89.0f)
-		pitch = -89.0f;
-
-	glm::vec3 front;
-	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-	front.y = sin(glm::radians(pitch));
-	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-
-	cam -> cameraFront = glm::normalize(front);
-
+	/*
+	// Camera controls
+    if( keys[GLFW_KEY_W] || keys[GLFW_KEY_UP] )
+    {
+        camera->ProcessKeyboard( FORWARD, deltaTime );
+    }
+    
+    if( keys[GLFW_KEY_S] || keys[GLFW_KEY_DOWN] )
+    {
+        camera->ProcessKeyboard( BACKWARD, deltaTime );
+    }
+    
+    if( keys[GLFW_KEY_A] || keys[GLFW_KEY_LEFT] )
+    {
+        camera->ProcessKeyboard( LEFT, deltaTime );
+    }
+    
+    if( keys[GLFW_KEY_D] || keys[GLFW_KEY_RIGHT] )
+    {
+        camera->ProcessKeyboard( RIGHT, deltaTime );
+    }
+	*/
 }
 
-void Event :: scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
-{	
-	// Zoom
+void Event::KeyCallback( GLFWwindow *window, Camera cam, int key, int scancode, int action, int mode )
+{
+    if( key == GLFW_KEY_ESCAPE && action == GLFW_PRESS )
+    {
+        glfwSetWindowShouldClose(window, GL_TRUE);
+	}
+}
 
-	if (fov >= 1.0f && fov <= 45.0f)
-        fov -= yoffset;
-    if (fov <= 1.0f)
-        fov = 1.0f;
-    if (fov >= 45.0f)
-        fov = 45.0f;
+void Event::MouseCallback( GLFWwindow *window, Camera cam, double xPos, double yPos )
+{
+    if( firstMouse )
+    {
+        lastX = xPos;
+        lastY = yPos;
+        firstMouse = false;
+    }
+    
+    GLfloat xOffset = xPos - lastX;
+    GLfloat yOffset = lastY - yPos;  // Reversed since y-coordinates go from bottom to left
+    
+    lastX = xPos;
+    lastY = yPos;
+    
+    cam.ProcessMouseMovement( xOffset, yOffset );
+}
+
+void Event::ScrollCallback( GLFWwindow *window, Camera cam, double xOffset, double yOffset )
+{
+    cam.ProcessMouseScroll( yOffset );
 }

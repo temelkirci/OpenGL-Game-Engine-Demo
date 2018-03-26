@@ -1,13 +1,6 @@
-﻿#include <fstream>
-#include <string>
-
-#include <sstream>
-#include <iostream>
+﻿#include "Shader.h"
 
 using namespace std;
-#include <GL/glew.h>
-
-#include "Shader.h"
 
 Shader :: Shader()
 {
@@ -24,6 +17,7 @@ Shader :: Shader(const GLchar* vertexPath , const GLchar* fragmentPath)
 	
 	std::string vertexCode;
 	std::string fragmentCode;
+
 	std::ifstream vShaderFile;
 	std::ifstream fShaderFile;
 	
@@ -55,63 +49,136 @@ Shader :: Shader(const GLchar* vertexPath , const GLchar* fragmentPath)
 	{
 		std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
 	}
+
 		const GLchar* vShaderCode = vertexCode.c_str();
 		const GLchar* fShaderCode = fragmentCode.c_str();
 
 		// 2. Compile shaders
 		GLuint vertex, fragment;
-		GLint success;
-		GLchar infoLog[512];
 
-		// Vertex Shader
+		/////////////// VERTEX SHADER ///////////////
 		vertex = glCreateShader(GL_VERTEX_SHADER);
 		glShaderSource(vertex, 1, &vShaderCode, NULL);
 		glCompileShader(vertex);
+		
+		checkCompileErrors(vertex, "VERTEX");
 
-		// Print compile errors if any
-		glGetShaderiv(vertex, GL_COMPILE_STATUS, &success);
-
-		if(!success)
-		{
-			glGetShaderInfoLog(vertex, 512, NULL, infoLog);
-			std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog<< std::endl;
-		}
-
-		// Similiar for Fragment Shader
+		/////////////// FRAGMENT SHADER ///////////////
 		fragment = glCreateShader(GL_FRAGMENT_SHADER);
 		glShaderSource(fragment, 1, &fShaderCode, NULL);
 		glCompileShader(fragment);
 
-		// Print compile errors if any
-		glGetShaderiv(fragment, GL_COMPILE_STATUS, &success);
-
-		if(!success)
-		{
-			glGetShaderInfoLog(fragment, 512, NULL, infoLog);
-			std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog<< std::endl;
-		}
+		checkCompileErrors(fragment, "FRAGMENT");
 
 		// Shader Program
-		this->Program = glCreateProgram();
-		glAttachShader(this->Program, vertex);
-		glAttachShader(this->Program, fragment);
-		glLinkProgram(this->Program);
+		this->mProgramID = glCreateProgram();
+		glAttachShader(this->mProgramID, vertex);
+		glAttachShader(this->mProgramID, fragment);
+		glLinkProgram(this->mProgramID);
 
-		// Print linking errors if any
-		glGetProgramiv(this->Program, GL_LINK_STATUS, &success);
-		if(!success)
-		{
-			glGetProgramInfoLog(this->Program, 512, NULL, infoLog);
-			std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog <<std::endl;
-		}
+		checkCompileErrors(mProgramID, "PROGRAM");
 			
 		glDeleteShader(vertex);
 		glDeleteShader(fragment);
 		
 }
 
-void Shader :: Use() 
+void Shader::Use() const
 { 
-	glUseProgram(this->Program); 
+	glUseProgram(this->mProgramID); 
 }
 
+// ------------------------------------------------------------------------
+void Shader::setBool(const std::string &name, bool value) const
+{         
+	glUniform1i(glGetUniformLocation(mProgramID, name.c_str()), (int)value); 
+}
+
+// ------------------------------------------------------------------------
+void Shader::setInt(const std::string &name, int value) const
+{ 
+	glUniform1i(glGetUniformLocation(mProgramID, name.c_str()), value); 
+}
+
+// ------------------------------------------------------------------------
+void Shader::setFloat(const std::string &name, float value) const
+{ 
+	glUniform1f(glGetUniformLocation(mProgramID, name.c_str()), value); 
+}
+
+// ------------------------------------------------------------------------
+void Shader::setVec2(const std::string &name, const glm::vec2 &value) const
+{ 
+	glUniform2fv(glGetUniformLocation(mProgramID, name.c_str()), 1, &value[0]); 
+}
+void Shader::setVec2(const std::string &name, float x, float y) const
+{ 
+	glUniform2f(glGetUniformLocation(mProgramID, name.c_str()), x, y); 
+}
+
+// ------------------------------------------------------------------------
+void Shader::setVec3(const std::string &name, const glm::vec3 &value) const
+{ 
+	glUniform3fv(glGetUniformLocation(mProgramID, name.c_str()), 1, &value[0]); 
+}   
+void Shader::setVec3(const std::string &name, float x, float y, float z) const
+{ 
+    glUniform3f(glGetUniformLocation(mProgramID, name.c_str()), x, y, z); 
+}
+
+// ------------------------------------------------------------------------
+void Shader::setVec4(const std::string &name, const glm::vec4 &value) const
+{ 
+	glUniform4fv(glGetUniformLocation(mProgramID, name.c_str()), 1, &value[0]); 
+}
+void Shader::setVec4(const std::string &name, float x, float y, float z, float w) const
+{ 
+	glUniform4f(glGetUniformLocation(mProgramID, name.c_str()), x, y, z, w); 
+}
+
+// ------------------------------------------------------------------------
+void Shader::setMat2(const std::string &name, const glm::mat2 &mat) const
+{
+	glUniformMatrix2fv(glGetUniformLocation(mProgramID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
+}
+
+// ------------------------------------------------------------------------
+void Shader::setMat3(const std::string &name, const glm::mat3 &mat) const
+{
+	glUniformMatrix3fv(glGetUniformLocation(mProgramID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
+}
+
+// ------------------------------------------------------------------------
+void Shader::setMat4(const std::string &name, const glm::mat4 &mat) const
+{
+	glUniformMatrix4fv(glGetUniformLocation(mProgramID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
+}
+
+void Shader::checkCompileErrors(GLuint shader, std::string type)
+    {
+        GLint success;
+        GLchar infoLog[1024];
+        if (type != "PROGRAM")
+        {
+            glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+            if (!success)
+            {
+                glGetShaderInfoLog(shader, 1024, NULL, infoLog);
+                std::cout << "ERROR::SHADER_COMPILATION_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
+            }
+        }
+        else
+        {
+            glGetProgramiv(shader, GL_LINK_STATUS, &success);
+            if (!success)
+            {
+                glGetProgramInfoLog(shader, 1024, NULL, infoLog);
+                std::cout << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
+            }
+        }
+    }
+
+GLuint Shader::getProgramID()
+{
+	return mProgramID;
+}

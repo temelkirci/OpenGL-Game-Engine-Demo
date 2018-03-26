@@ -14,9 +14,13 @@ class Event
 	 Event();
 	 ~Event();
 
-	void InputEvent(GLFWwindow* , Camera*);
-	void   scroll_callback(GLFWwindow* , double , double );
+	void InputEvent(GLFWwindow*, Camera);
+	
+	void KeyCallback( GLFWwindow *window, Camera, int key, int scancode, int action, int mode );
+	void MouseCallback( GLFWwindow *window, Camera, double xPos, double yPos );
+	void ScrollCallback( GLFWwindow *window, Camera, double xOffset, double yOffset );
 
+ private:
 	GLfloat yaw;
 	GLfloat pitch;
 	GLfloat lastX;
@@ -24,7 +28,4 @@ class Event
 	GLfloat fov;
 
 	bool firstMouse;
-	
- private:
-	 
  };
