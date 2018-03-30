@@ -3,7 +3,7 @@
 
 #include <GL/glut.h>
 
-#include <GLFW/glfw3.h>
+#include <SDL/SDL.h>
 
 #include <glm/glm.hpp>
 
@@ -16,7 +16,10 @@ class Library
 	 ~Library();
 
 	bool InitLibrary();
-	GLFWwindow* window;
- private:
 
+	SDL_Window* mainWindow;
+	SDL_GLContext mainContext;
+	SDL_Renderer* mRenderer;
+ private:
+	 
  };

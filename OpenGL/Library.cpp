@@ -12,39 +12,52 @@ Library :: Library()
 
 Library ::~Library()
 {
+	SDL_GL_DeleteContext(mainContext);
+	SDL_DestroyWindow(mainWindow);
 
 }
 
 bool Library ::InitLibrary()
 {
-	if( !glfwInit() )
+	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
 	{
-		std::cout <<  "Failed to initialize GLFW" << std::endl;
-		return EXIT_FAILURE;
+		std::cout << "Failed to init SDL\n";
+		return false;
 	}
 
-	// Set all the required options for GLFW
-	glfwWindowHint(GLFW_SAMPLES, 4); // 4x antialiasing
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4); // We want OpenGL 4.3
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); 
-	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); 
+	// Set all the required options for SDL
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+	SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
+	SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
 
-	#ifdef __APPLE__
-		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // uncomment this statement to fix compilation on OS X
-	#endif
+	/* Enable multisampling for a nice antialiased effect */
+	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
+	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
 
-	window = glfwCreateWindow( screenWidth, screenHeight, "3D OpenGL Game Engine", nullptr, nullptr);
+	// Create our window centered at 512x512 resolution
+	mainWindow = SDL_CreateWindow(
+		"3D Game Engine",
+		SDL_WINDOWPOS_CENTERED,
+		SDL_WINDOWPOS_CENTERED,
+		1024,
+		700,
+		SDL_WINDOW_OPENGL
+	);
 
-	if( window == NULL )
+	if(mainWindow == NULL )
 	{
 		std::cout << "Failed to open GLFW window." << std::endl;
-		glfwTerminate();
+		SDL_Quit();
 		return EXIT_FAILURE;
 	}
 
 
-	glfwMakeContextCurrent(window); // Initialize GLEW
+	mainContext = SDL_GL_CreateContext(mainWindow);
+
 	glewExperimental = true; // Needed in core profile
 	
 	if (glewInit() != GLEW_OK) 
@@ -53,10 +66,21 @@ bool Library ::InitLibrary()
 		return EXIT_FAILURE;
 	}
 
-	std::cout<<"Opengl version :"<<glGetString(GL_VERSION)<< std::endl;
-	std::cout<<"GLSL version :"<<glGetString(GL_SHADING_LANGUAGE_VERSION)<< std::endl;
-	std::cout<<"Opengl Renderer :"<<glGetString(GL_RENDERER)<< std::endl;
-	std::cout<<"Opengl Vendor :"<<glGetString(GL_VENDOR)<< std::endl<<std::endl;
+	// OpenGL functions will draw to window
+	SDL_GL_MakeCurrent(mainWindow, mainContext);
+
+	/* This makes our buffer swap syncronized with the monitor's vertical refresh */ // Use v-sync
+	SDL_GL_SetSwapInterval(1);
+
+	mRenderer = SDL_CreateRenderer(mainWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
+	SDL_SetRenderDrawColor(mRenderer, 200, 0, 0, 1);
+
+	
+	SDL_Log("Vendor         : %s\n", glGetString(GL_VENDOR));
+	SDL_Log("Renderer       : %s\n", glGetString(GL_RENDERER));
+	SDL_Log("OpenGL Version : %s\n", glGetString(GL_VERSION));
+	SDL_Log("GLSL Version   : %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
+	//SDL_Log("Extensions : %s\n", glGetString(GL_EXTENSIONS));
 
 	return EXIT_SUCCESS;
 }

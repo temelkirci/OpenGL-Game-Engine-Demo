@@ -15,90 +15,67 @@ using namespace std;
 
 Event :: Event()
 {
-	yaw = -90.0f;	// Yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right (due to how Eular angles work) so we initially rotate a bit to the left.
-	pitch = 0.0f;
-	lastX = 1024.0f / 2.0;
-	lastY = 700.0f / 2.0;
-	fov = 45.0f;
-	firstMouse = true;
+	//Enable text input
+	SDL_StartTextInput();
+
+	mQuite = false;
 }
 
 Event ::~Event()
 {
-
+	SDL_StopTextInput();
 }
 
 
-void Event :: InputEvent(GLFWwindow* pencere , Camera cam)
+void Event :: InputEvent(Camera cam)
 {		
-	double xpos, ypos;
-	glfwGetCursorPos(pencere , &xpos, &ypos);
-	//glfwSetCursorPos(pencere , 1024/2, 768/2);
+	int xpos, ypos;
+	SDL_GetMouseState(&xpos, &ypos);
 
-	if(glfwGetKey(pencere, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-		glfwSetWindowShouldClose(pencere, true);
-
-	if(glfwGetKey(pencere, GLFW_KEY_Q) == GLFW_PRESS)
-		glfwSetWindowShouldClose(pencere, true);
-
-	if(glfwGetKey(pencere, GLFW_KEY_W) == GLFW_PRESS)
+	while (SDL_PollEvent(&mKey))
 	{
-		cam.ProcessKeyboard( FORWARD, cam.deltaTime );
+		switch (mKey.type)
+		{
+			//User requests quit
+			case SDL_QUIT:
+				mQuite = true;
+				break;
+			
+			case SDL_MOUSEMOTION:
+				//cam.cameraFront = MouseMotion(xpos, ypos);
+				break;
 
-		//cam -> cameraSpeed = 5.0f * cam -> deltaTime / 1000.f;
-		//cam -> cameraPos += cam -> cameraSpeed * cam -> cameraFront;
-	}
-	if(glfwGetKey(pencere, GLFW_KEY_A) == GLFW_PRESS)
-	{
-		cam.ProcessKeyboard( LEFT, cam.deltaTime );
-		//cam -> cameraSpeed = 5.0f * cam -> deltaTime / 1000.f;
-		//cam -> cameraPos -= glm::normalize(glm::cross(cam -> cameraFront, cam -> cameraUp)) * cam -> cameraSpeed;
-	}
-	if(glfwGetKey(pencere, GLFW_KEY_S) == GLFW_PRESS)
-	{
-		cam.ProcessKeyboard( BACKWARD, cam.deltaTime );
-		//cam -> cameraSpeed = 5.0f * cam -> deltaTime / 1000.f;
-		//cam -> cameraPos -= cam -> cameraSpeed * cam -> cameraFront;
-	}
-	if(glfwGetKey(pencere, GLFW_KEY_D) == GLFW_PRESS)
-	{
-		cam.ProcessKeyboard( RIGHT, cam.deltaTime );
-		//cam -> cameraSpeed = 5.0f * cam -> deltaTime / 1000.f;
-		//cam -> cameraPos += glm::normalize(glm::cross(cam -> cameraFront, cam -> cameraUp)) * cam -> cameraSpeed;
-	}
+			case SDL_KEYDOWN:
+				switch (mKey.key.keysym.sym)
+				{
+					case SDLK_w:
+						std::cout << " You pressed w key " << std::endl;
+						cam.cameraPos += cam.cameraSpeed * cam.cameraFront;
+						break;
+					case SDLK_s:
+						std::cout << " You pressed s key " << std::endl;
+						cam.cameraPos -= cam.cameraSpeed * cam.cameraFront;
+						break;
+					case SDLK_a:
+						std::cout << " You pressed a key " << std::endl;
+						cam.cameraPos -= glm::normalize(glm::cross(cam.cameraFront, cam.cameraUp)) * cam.cameraSpeed;
+						break;
+					case SDLK_d:
+						std::cout << " You pressed d key " << std::endl;
+						cam.cameraPos += glm::normalize(glm::cross(cam.cameraFront, cam.cameraUp)) * cam.cameraSpeed;
+						break;
 
-	/*
-	// Camera controls
-    if( keys[GLFW_KEY_W] || keys[GLFW_KEY_UP] )
-    {
-        camera->ProcessKeyboard( FORWARD, deltaTime );
-    }
-    
-    if( keys[GLFW_KEY_S] || keys[GLFW_KEY_DOWN] )
-    {
-        camera->ProcessKeyboard( BACKWARD, deltaTime );
-    }
-    
-    if( keys[GLFW_KEY_A] || keys[GLFW_KEY_LEFT] )
-    {
-        camera->ProcessKeyboard( LEFT, deltaTime );
-    }
-    
-    if( keys[GLFW_KEY_D] || keys[GLFW_KEY_RIGHT] )
-    {
-        camera->ProcessKeyboard( RIGHT, deltaTime );
-    }
-	*/
-}
-
-void Event::KeyCallback( GLFWwindow *window, Camera cam, int key, int scancode, int action, int mode )
-{
-    if( key == GLFW_KEY_ESCAPE && action == GLFW_PRESS )
-    {
-        glfwSetWindowShouldClose(window, GL_TRUE);
+					case SDLK_TAB:
+						//std::this_thread::sleep_for(std::chrono::seconds(5));
+						mQuite = true;
+						break;
+				}
+			
+		}
 	}
 }
 
+/*
 void Event::MouseCallback( GLFWwindow *window, Camera cam, double xPos, double yPos )
 {
     if( firstMouse )
@@ -121,3 +98,4 @@ void Event::ScrollCallback( GLFWwindow *window, Camera cam, double xOffset, doub
 {
     cam.ProcessMouseScroll( yOffset );
 }
+*/
