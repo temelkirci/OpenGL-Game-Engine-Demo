@@ -2,11 +2,11 @@
 #include <GL/glew.h>
 
 #include <SDL/SDL.h>
-
-#include <SOIL2/SOIL2.h>
-#include <SOIL2/stb_image.h>
+#include <SDL/SDL_image.h>
 
 #include <iostream>
+
+using namespace std;
 
 class TextureManager
  {

@@ -27,6 +27,7 @@ class Camera
 	GLfloat GetZoom();
 
 	void updateCamera(Shader pShader);
+	void scroll(GLfloat xoffset , GLfloat yoffset);
 	void calculateFPS(SDL_Window*);
 	void inputMouse(int pX, int pY);
 
@@ -34,17 +35,15 @@ class Camera
 	float lastTime;
 	float deltaTime;
 	float totalTime;
-	
-	float cameraSpeed;
 	float zoom;
-
-	glm::mat4 model;
-	glm::mat4 view;
-	glm::mat4 projection;
 
 	glm::vec3 cameraPos;
 	glm::vec3 cameraFront;
 	glm::vec3 cameraUp;
+	glm::vec3 up;
+	glm::vec3 cameraRight; // a right vector that represents the positive x-axis of the camera space
+	glm::vec3 cameraTarget;
+	glm::vec3 cameraDirection;
 
 	GLfloat yaw;
 	GLfloat pitch;

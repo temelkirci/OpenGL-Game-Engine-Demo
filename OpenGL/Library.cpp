@@ -41,10 +41,10 @@ bool Library ::InitLibrary()
 	// Create our window centered at 512x512 resolution
 	mainWindow = SDL_CreateWindow(
 		"3D Game Engine",
-		SDL_WINDOWPOS_CENTERED,
-		SDL_WINDOWPOS_CENTERED,
-		1024,
-		700,
+		0,
+		0,
+		1366,
+		768,
 		SDL_WINDOW_OPENGL
 	);
 
@@ -73,7 +73,7 @@ bool Library ::InitLibrary()
 	SDL_GL_SetSwapInterval(1);
 
 	mRenderer = SDL_CreateRenderer(mainWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
-	SDL_SetRenderDrawColor(mRenderer, 200, 0, 0, 1);
+	//SDL_SetRenderDrawColor(mRenderer, 200, 0, 0, 1);
 
 	
 	SDL_Log("Vendor         : %s\n", glGetString(GL_VENDOR));

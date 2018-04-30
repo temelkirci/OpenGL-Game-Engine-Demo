@@ -1,21 +1,9 @@
-﻿  main.cpp
-c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\mesh.h(26): error C2011: 'Texture': 'class' türü yeniden tanımı
-  c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\texture.h(12): note: 'Texture' bildirimine bakın
-c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\main.cpp(27): error C2512: 'Mesh': kullanılabilir uygun varsayılan oluşturucu yok
-  c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\mesh.h(32): note: 'Mesh' bildirimine bakın
-c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\main.cpp(104): error C2039: 'se': bir 'Mesh' üyesi değil
-  c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\mesh.h(32): note: 'Mesh' bildirimine bakın
-c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\main.cpp(104): error C2146: sözdizimi hatası: ';' eksik ('Texture' tanımlayıcısından önce)
-c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\main.cpp(104): error C2079: 'ourTexture' tanımsız class 'Texture' kullanıyor
-c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\main.cpp(104): error C2440: 'başlatılıyor': 'initializer list' - 'int' dönüşümü yapılamıyor
-  c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\main.cpp(104): note: Başlatıcı çok fazla öğe içeriyor
-c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\main.cpp(116): error C2228: '.texture' sol tarafı bir sınıf/yapı/birleşim içermelidir
-  c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\main.cpp(116): note: tür 'int' şeklindedir
-c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\main.cpp(116): error C2660: 'glBindTexture': işlev 1 bağımsız değişken almıyor
-c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\main.cpp(124): error C2065: 'VAO': bildirimi yapılmamış tanımlayıcı
-c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\main.cpp(145): error C2065: 'VAO': bildirimi yapılmamış tanımlayıcı
-c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\main.cpp(146): error C2065: 'VBO': bildirimi yapılmamış tanımlayıcı
-  Model.cpp
-  Mesh.cpp
-c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\mesh.cpp(59): warning C4244: 'bağımsız değişken': 'GLuint' - 'GLfloat' dönüşümü; veri kaybı olabilir
-  Kod Üretiliyor...
+﻿  Camera.cpp
+c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\camera.cpp(65): warning C4244: '=': 'Uint32' - 'float' dönüşümü; veri kaybı olabilir
+c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\camera.cpp(69): warning C4244: '=': 'Uint32' - 'float' dönüşümü; veri kaybı olabilir
+c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\camera.cpp(83): warning C4244: '=': 'int' - 'GLfloat' dönüşümü; veri kaybı olabilir
+c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\camera.cpp(84): warning C4244: '=': 'int' - 'GLfloat' dönüşümü; veri kaybı olabilir
+c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\camera.cpp(91): warning C4244: '=': 'int' - 'GLfloat' dönüşümü; veri kaybı olabilir
+c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\camera.cpp(92): warning C4244: '=': 'int' - 'GLfloat' dönüşümü; veri kaybı olabilir
+c:\users\temel\documents\visual studio 2012\projects\opengl-game-engine-demo\opengl\camera.cpp(94): warning C4305: 'başlatılıyor': 'double' iken 'GLfloat' olarak kesildi
+  OpenGL.vcxproj -> C:\Users\TEMEL\Documents\Visual Studio 2012\Projects\OpenGL-Game-Engine-Demo\Debug\OpenGL.exe

@@ -6,8 +6,6 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/glm.hpp>
 
-//#include <thread>
-
 #include "Camera.h"
 
 class Event
